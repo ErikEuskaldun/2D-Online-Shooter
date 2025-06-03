@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619780e3d1bbb3f459775b73653f6c06, type: 3}
+  m_Name: 02_AK
+  m_EditorClassIdentifier: 
+  id: 2
+  gunName: AK
+  damage: 11.5
+  isAutomatic: 1
+  cadence: 0.1
+  reloadTime: 2
+  bullets: 30
+  pixelLenght: 26
+  image: {fileID: 21300000, guid: ff88b30b2addef942ab4ac75cdfa782c, type: 3}
