@@ -27,8 +27,13 @@ public class NetPlayer : NetworkBehaviour
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         animator = this.GetComponent<Animator>();
 
-        if(IsClient)
-            Spawn(SpawnPoints.Instance.GetRandomSpawn().position);
+        NetworkManager.Singleton.SceneManager.OnSceneEvent += (sceneEvent) =>
+        {
+            if (sceneEvent.SceneEventType == SceneEventType.LoadEventCompleted && IsOwner)
+            {
+                Spawn(SpawnPoints.Instance.GetRandomSpawn().position);
+            }
+        };
     }
 
     private void OnFlipCharacter(bool previousValue, bool newValue)

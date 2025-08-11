@@ -166,13 +166,14 @@ public class LobbyManager : MonoBehaviour
     }
 
     //Se une a un lobby por código
-    private async void JoinLobbyByCode(string lobbyCode)
+    public async void JoinLobbyByCode(string lobbyCode)
     {
         try
         {
+            Debug.Log(lobbyCode);
             JoinLobbyByCodeOptions joinLobbyByCodeOptions = new JoinLobbyByCodeOptions
             {
-                Player = GetPlayer()
+                Player = GetPlayer()                
             };
 
             Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
