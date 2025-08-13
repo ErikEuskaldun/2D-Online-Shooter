@@ -6,11 +6,13 @@ using UnityEngine;
 public class NetGunController : NetworkBehaviour
 {
     [SerializeField] private GunScriptable testGun;
-    [SerializeField] private NetGun gun;
+    private NetGun gun;
     private Transform handTransform;
 
     private NetworkVariable<NetworkObjectReference> gunRef = new NetworkVariable<NetworkObjectReference>(
         default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+    public NetGun Gun => gun;
 
     public override void OnNetworkSpawn()
     {
@@ -49,18 +51,24 @@ public class NetGunController : NetworkBehaviour
         } while (gunRef == default);
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     private void Update()
     {
         if (gun == null)
             return;
+
+        if (IsOwner)
+            Rotate();
 
         gun.transform.position = handTransform.position;
         gun.transform.localRotation = handTransform.rotation;
 
         if (!IsOwner)
             return;
-
-        Rotate();
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && gun.CanShoot())
             gun.ShootServerRpc(gun.GetShotDirection());

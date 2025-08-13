@@ -281,6 +281,7 @@ MonoBehaviour:
   speed: 10
   currentHP:
     m_InternalValue: 0
+  gunController: {fileID: 5110847877049351767}
 --- !u!114 &5433978204292081346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c808cc9ce3b22d9438bc90cf7711c00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBar: {fileID: 6615241777016331881}
   hpSegmentList:
   - {fileID: 6875440934391672831}
   - {fileID: 4843059276006948000}
@@ -445,7 +447,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   testGun: {fileID: 11400000, guid: 88ab7e6721908b84eb6a987c322227b0, type: 2}
-  fakeGun: {fileID: 5267511605321565860}
 --- !u!4 &4825193813875575237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7268939951520694957, guid: 56fba43387b988a45a5e2d24b2df5a07, type: 3}
@@ -464,6 +465,11 @@ Transform:
 --- !u!4 &5281088119484301727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8024517063451855607, guid: 56fba43387b988a45a5e2d24b2df5a07, type: 3}
+  m_PrefabInstance: {fileID: 2744660758049459048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6615241777016331881 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9068263047669208321, guid: 56fba43387b988a45a5e2d24b2df5a07, type: 3}
   m_PrefabInstance: {fileID: 2744660758049459048}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6875440934391672831 stripped

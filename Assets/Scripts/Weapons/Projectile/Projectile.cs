@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class Projectile : NetworkBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField] int damage;
     [SerializeField] float speed = 5f;
@@ -26,7 +26,7 @@ public class Projectile : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!IsServer)
+        if (!NetworkManager.Singleton.IsServer)
             return;
 
         if (collision.collider.gameObject.layer == 7)
@@ -35,7 +35,7 @@ public class Projectile : NetworkBehaviour
             if (playerHit.OwnerClientId == ownerId)
                 return;
 
-            playerHit.Hit(damage);
+            playerHit.Hit(damage, ownerId);
         }
     }
 }

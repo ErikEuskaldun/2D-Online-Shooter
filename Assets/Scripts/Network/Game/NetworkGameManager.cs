@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class NetworkGameManager : NetworkBehaviour
 {
     public static NetworkGameManager Instance;
+    public NetworkVariable<int> time = new NetworkVariable<int>(300, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+    private const bool EDIT_MODE = true;
 
     private void Awake()
     {
-        if(Instance != null && Instance!=this)
+        if(Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -27,6 +31,8 @@ public class NetworkGameManager : NetworkBehaviour
             return;
 
         NetworkManager.SceneManager.OnLoadComplete += SceneManager_OnLoadComplete;
+
+        if(EDIT_MODE) StartCoroutine(GameTimer(360));
     }
     public override void OnNetworkDespawn()
     {
@@ -42,6 +48,7 @@ public class NetworkGameManager : NetworkBehaviour
             return;
 
         SceneLoadedClientRPC(sceneName);
+        StartCoroutine(GameTimer(360));
     }
 
     [ClientRpc]
@@ -50,8 +57,15 @@ public class NetworkGameManager : NetworkBehaviour
         Debug.Log("Hola, estas jugando en el servdor XX al mapa " + sceneName);
     }
 
-    public void Requestrespawn(GameObject player)
+    private IEnumerator GameTimer(int seconds)
     {
+        time.Value = seconds;
 
+        do
+        {
+            yield return new WaitForSeconds(1f);
+            time.Value--;
+        } while (time.Value > 0);
+        //TODO: Game end
     }
 }
