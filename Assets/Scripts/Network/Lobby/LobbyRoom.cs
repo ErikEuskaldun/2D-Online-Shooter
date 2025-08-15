@@ -7,6 +7,7 @@ public class LobbyRoom : MonoBehaviour
 {
     [SerializeField] GameObject lobbyPlayerInfoPrefab;
     [SerializeField] TMP_Text txtLobbyName;
+    [SerializeField] TMP_Text txtGamemode;
     [SerializeField] TMP_Text txtInviteCode;
     [SerializeField] TMP_Text txtPlayersOnline;
     [SerializeField] TMP_Text txtMap;
@@ -41,6 +42,7 @@ public class LobbyRoom : MonoBehaviour
     {
         //Lobby Info
         txtLobbyName.text = lobby.Name;
+        txtGamemode.text = lobby.Data["game_mode"].Value;
         txtInviteCode.text = "Invite Code: " + lobby.LobbyCode;
         txtMap.text = lobby.Data["map"].Value;
         //imgMap.sprite = ;

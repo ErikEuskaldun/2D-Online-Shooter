@@ -1,4 +1,7 @@
+using NUnit.Framework.Internal;
+using System;
 using System.Collections;
+using System.Security.Cryptography;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,35 +10,70 @@ public class NetworkGameManager : NetworkBehaviour
 {
     public static NetworkGameManager Instance;
     public NetworkVariable<int> time = new NetworkVariable<int>(300, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public GameMode gameMode = GameMode.FFA;
 
-    private const bool EDIT_MODE = true;
+    private const bool EDIT_MODE = false;
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        /*if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
-            return;
-        }
+            Instance.Cleanup();
+            Destroy(Instance.gameObject);
+        }*/
 
         Instance = this;
-    }
-
-    private void Start()
-    {
         DontDestroyOnLoad(gameObject);
     }
+
+    private void Cleanup()
+    {
+        NetworkManager.OnClientDisconnectCallback -= this.NetworkManager_OnClientDisconnect;
+        NetworkManager.OnClientConnectedCallback -= this.NetworkManager_OnClientConnected;
+        if (NetworkManager.Singleton != null)
+            NetworkManager.Singleton.SceneManager.OnLoadComplete -= this.SceneManager_OnLoadComplete;
+    }
+
+
     public override void OnNetworkSpawn()
     {
+        NetworkManager.OnClientDisconnectCallback += NetworkManager_OnClientDisconnect;
         if (!IsServer)
             return;
 
         NetworkManager.SceneManager.OnLoadComplete += SceneManager_OnLoadComplete;
+        NetworkManager.OnClientConnectedCallback += NetworkManager_OnClientConnected;
 
         if(EDIT_MODE) StartCoroutine(GameTimer(360));
     }
+
+    private void NetworkManager_OnClientDisconnect(ulong clientId)
+    {
+        if (clientId == NetworkManager.Singleton.LocalClientId)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    private void NetworkManager_OnClientConnected(ulong obj)
+    {
+        NetworkManager.Singleton.ConnectedClients.TryGetValue(obj, out NetworkClient client);
+        NetPlayer player = client.PlayerObject.GetComponent<NetPlayer>();
+        player.OnPlayerKills += Player_OnPlayerKills;
+    }
+
+    private const int TEST_FFA_KILLS = 20;
+    private void Player_OnPlayerKills(object sender, NetPlayer killer)
+    {
+        if (killer.kills.Value == TEST_FFA_KILLS)
+        {
+            EndGame();
+        }
+    }
+
     public override void OnNetworkDespawn()
     {
+        Destroy(this.gameObject);
         if (!IsServer)
             return;
 
@@ -44,11 +82,13 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void SceneManager_OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
+
         if (!IsServer || clientId != NetworkManager.Singleton.LocalClientId)
             return;
 
         SceneLoadedClientRPC(sceneName);
         StartCoroutine(GameTimer(360));
+
     }
 
     [ClientRpc]
@@ -66,6 +106,81 @@ public class NetworkGameManager : NetworkBehaviour
             yield return new WaitForSeconds(1f);
             time.Value--;
         } while (time.Value > 0);
-        //TODO: Game end
+        EndGame();
     }
+
+    private void EndGame()
+    {
+        EndGameClientRpc(TestGetFFAWinner(), 15);
+    }
+
+    private string TestGetFFAWinner()
+    {
+        NetPlayer best = default;
+        foreach (var player in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            NetworkObject playerNetObject = player.PlayerObject;
+            NetPlayer netPlayer = playerNetObject.GetComponent<NetPlayer>();
+            if (best == default || netPlayer.kills.Value > best.kills.Value)
+                best = netPlayer;
+        }
+        return best.username.Value.ToString();
+    }
+
+    [ClientRpc]
+    private void EndGameClientRpc(string winner, int seconds)
+    {
+        Debug.Log("Game Over");
+        GameOverUI.Instance.PopUp(winner, seconds);
+        if (IsServer)
+            StartCoroutine(CountDownToLobby(seconds));
+        
+    }
+
+    private IEnumerator CountDownToLobby(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ShutdownClientRpc();
+        ResetGameData();
+    }
+
+    [ClientRpc]
+    private void ShutdownClientRpc()
+    {
+        //NetworkManager.Singleton.Shutdown();
+
+        GameOverUI.Instance.PopOut();
+        StopAllCoroutines();
+
+        if (IsServer)
+            ResetGameData();
+    }
+
+    private void ResetGameData()
+    {
+        StartCoroutine(GameTimer(360));
+
+        foreach (var player in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            NetworkObject playerNetObject = player.PlayerObject;
+            NetPlayer netPlayer = playerNetObject.GetComponent<NetPlayer>();
+            netPlayer.kills.Value = 0;
+            netPlayer.deaths.Value = 0;
+            netPlayer.currentHP.Value = 100;
+
+            var sendParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] { player.ClientId }
+                }
+            };
+            netPlayer.SpawnClientRpc(sendParams);
+        }
+    }
+}
+
+public enum GameMode
+{
+    Null, FFA
 }

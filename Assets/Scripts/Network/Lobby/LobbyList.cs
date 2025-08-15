@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LobbyList : MonoBehaviour
@@ -26,6 +27,11 @@ public class LobbyList : MonoBehaviour
     private void OnLobbyJoined(object sender, Lobby lobby)
     {
         this.gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        LobbyManager.Singleton.OnLobbyListUpdates -= OnLobbyListUpdates;
     }
 
     private void OnLobbyListUpdates(object sender, List<Lobby> lobbyList)

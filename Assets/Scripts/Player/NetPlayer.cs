@@ -23,10 +23,14 @@ public class NetPlayer : NetworkBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    private const bool EDIT_MODE = true;
+    private const bool EDIT_MODE = false;
+
+    public event EventHandler<NetPlayer> OnPlayerKills;
+    public event EventHandler<NetPlayer> OnPlayerDies;
 
     public override void OnNetworkSpawn()
     {
+        Debug.Log("Conectado: " + OwnerClientId);
         if (IsServer)
             currentHP.Value = 100;
 
@@ -108,10 +112,13 @@ public class NetPlayer : NetworkBehaviour
             StartCoroutine(Spawning(5));
             SetAliveStateClientRpc(false);
 
-            NetworkManager.Singleton.ConnectedClients.TryGetValue(playerId, out NetworkClient enemy);
-            enemy.PlayerObject.GetComponent<NetPlayer>().kills.Value++;
+            NetworkManager.Singleton.ConnectedClients.TryGetValue(playerId, out NetworkClient killer);
+            NetPlayer netKiller = killer.PlayerObject.GetComponent<NetPlayer>();
+            netKiller.kills.Value++;
+            OnPlayerKills?.Invoke(netKiller, netKiller);
 
             deaths.Value++;
+            OnPlayerDies?.Invoke(this, this);
         }
     }
 

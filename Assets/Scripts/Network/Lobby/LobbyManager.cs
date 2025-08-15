@@ -19,7 +19,7 @@ public class LobbyManager : MonoBehaviour
     private bool inGame = false;
 
     [SerializeField] private string team = "red";
-    
+    [SerializeField] private GameObject networkManager;
 
     public Lobby JoinedLobby => joinedLobby;
 
@@ -35,13 +35,19 @@ public class LobbyManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Singleton != null && Singleton !=this)
+        /*if (Singleton != null && Singleton !=this)
         {
             Destroy(this.gameObject);
             return;
         }
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);*/
+        NetworkManager[] existingManagers = FindObjectsByType<NetworkManager>(FindObjectsSortMode.None);
+        if (existingManagers.Length == 0)
+            Instantiate(networkManager);
+
+        //DontDestroyOnLoad(gameObject);
+
         Singleton = this;
     }
 
@@ -96,9 +102,9 @@ public class LobbyManager : MonoBehaviour
                 Player = GetPlayer(),
                 Data = new Dictionary<string, DataObject>
                 {
-                    { "game_mode", new DataObject(DataObject.VisibilityOptions.Public, "GunGame") },
+                    { "game_mode", new DataObject(DataObject.VisibilityOptions.Public, "Free-for-All") },
                     //{"GameMode", new DataObject(DataObject.VisibilityOptions.Public, "GunGame", DataObject.IndexOptions.S1) } #Para luego poder filtrar por S1
-                    { "map", new DataObject(DataObject.VisibilityOptions.Public, "factory") },
+                    { "map", new DataObject(DataObject.VisibilityOptions.Public, "test_map") },
                     { "relay_key", new DataObject(DataObject.VisibilityOptions.Member, "0") },
                     { "build_version", new DataObject(DataObject.VisibilityOptions.Public, Application.version) },
 
@@ -266,7 +272,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     //Se sale del lobby actual
-    private async void LeaveLobby()
+    public async void LeaveLobby()
     {
         try
         {
