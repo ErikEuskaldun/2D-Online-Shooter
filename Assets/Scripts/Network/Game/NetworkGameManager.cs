@@ -37,10 +37,10 @@ public class NetworkGameManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        NetworkManager.OnClientDisconnectCallback += NetworkManager_OnClientDisconnect;
         if (!IsServer)
             return;
 
+        NetworkManager.OnClientDisconnectCallback += NetworkManager_OnClientDisconnect;
         NetworkManager.SceneManager.OnLoadComplete += SceneManager_OnLoadComplete;
         NetworkManager.OnClientConnectedCallback += NetworkManager_OnClientConnected;
 
@@ -49,9 +49,19 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void NetworkManager_OnClientDisconnect(ulong clientId)
     {
-        if (clientId == NetworkManager.Singleton.LocalClientId)
+        // si el NetworkManager ya se está apagando, no hagas nada
+        if (NetworkManager.Singleton == null || !NetworkManager.Singleton.IsListening)
+            return;
+
+        var spawnManager = NetworkManager.Singleton.SpawnManager;
+        if (spawnManager == null)
+            return;
+
+        // Buscar todos los objetos que pertenecen al cliente y despawnea
+        foreach (var obj in spawnManager.GetClientOwnedObjects(clientId))
         {
-            SceneManager.LoadScene("MainMenu");
+            if (obj != null && obj.IsSpawned)
+                obj.Despawn(true);// true = también destruye el objeto en escena
         }
     }
 
@@ -111,7 +121,7 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void EndGame()
     {
-        EndGameClientRpc(TestGetFFAWinner(), 15);
+        EndGameClientRpc(TestGetFFAWinner(), 30);
     }
 
     private string TestGetFFAWinner()

@@ -6177,17 +6177,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fab3ed99a1303d649bd6cc33094eeacc, type: 3}
---- !u!114 &1730429110 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3286317556871833980, guid: fab3ed99a1303d649bd6cc33094eeacc, type: 3}
-  m_PrefabInstance: {fileID: 1730429109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b7d2d72ffae6f4e9ac50b0cbf18759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1730429111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8115561542454838597, guid: fab3ed99a1303d649bd6cc33094eeacc, type: 3}
@@ -7139,9 +7128,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1730429110}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: CloseGame
+      - m_Target: {fileID: 2072437062}
+        m_TargetAssemblyTypeName: TestCloseGame, Assembly-CSharp
+        m_MethodName: TestBackToLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7175,8 +7164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 20, y: 0}
-  m_SizeDelta: {x: -40, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -80, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7562638698486375812
 GameObject:
@@ -7217,7 +7206,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CLOSE GAME
+  m_text: LEAVE GAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ebccde1a00f71884c90b0c8378d7b03c, type: 2}
   m_sharedMaterial: {fileID: -5617258822234006993, guid: ebccde1a00f71884c90b0c8378d7b03c, type: 2}

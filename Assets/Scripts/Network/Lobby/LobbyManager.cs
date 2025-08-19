@@ -193,7 +193,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     //Se une al primer lobby que encuentra  disponible
-    private async void QuickJoinLobby()
+    public async void QuickJoinLobby()
     {
         try
         {
