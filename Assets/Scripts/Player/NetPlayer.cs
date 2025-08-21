@@ -30,7 +30,6 @@ public class NetPlayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log("Conectado: " + OwnerClientId);
         if (IsServer)
             currentHP.Value = 100;
 

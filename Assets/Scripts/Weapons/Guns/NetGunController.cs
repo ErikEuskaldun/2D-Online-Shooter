@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetGunController : NetworkBehaviour
 {
@@ -21,18 +22,28 @@ public class NetGunController : NetworkBehaviour
 
         if (IsServer)
         {
-            var gunObj = Instantiate(testGun.prefab);
-            gun = gunObj.GetComponent<NetGun>();
-            gun.Init(OwnerClientId);
-
-            var netObj = gun.GetComponent<NetworkObject>();
-            netObj.SpawnWithOwnership(OwnerClientId);
-
-            gunRef.Value = netObj;
+            NetworkManager.SceneManager.OnLoadComplete += HandleSceneLoaded;
         }
 
         StartCoroutine(AssignGunRefDelayed());
     }
+
+    private void HandleSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
+    {
+        if (clientId != OwnerClientId) return; // Solo spawnea cuando el dueño esté listo
+
+        var gunObj = Instantiate(testGun.prefab);
+        gun = gunObj.GetComponent<NetGun>();
+        gun.Init(OwnerClientId);
+
+        var netObj = gun.GetComponent<NetworkObject>();
+        netObj.SpawnWithOwnership(OwnerClientId);
+
+        gunRef.Value = netObj;
+
+        NetworkManager.SceneManager.OnLoadComplete -= HandleSceneLoaded;
+    }
+
 
     private void OnGunRefChanged(NetworkObjectReference previousValue, NetworkObjectReference newValue)
     {
