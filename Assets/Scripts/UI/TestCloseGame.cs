@@ -14,6 +14,9 @@ public class TestCloseGame : MonoBehaviour
 
     public void TestBackToLobby()
     {
+        StopAllCoroutines();
+
+        LobbyManager.Instance.LeaveLobby();
         NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene("Lobby");
     }

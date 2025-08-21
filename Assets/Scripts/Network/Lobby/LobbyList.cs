@@ -11,17 +11,17 @@ public class LobbyList : MonoBehaviour
 
     private void Start()
     {
-        LobbyManager.Singleton.OnLobbyListUpdates += OnLobbyListUpdates;
-        LobbyManager.Singleton.OnLobbyJoined += OnLobbyJoined;
-        LobbyManager.Singleton.OnLobbyLeft += OnLobbyLeft;
+        LobbyManager.Instance.OnLobbyListUpdates += OnLobbyListUpdates;
+        LobbyManager.Instance.OnLobbyJoined += OnLobbyJoined;
+        LobbyManager.Instance.OnLobbyLeft += OnLobbyLeft;
 
-        LobbyManager.Singleton.ListLobbies();
+        LobbyManager.Instance.ListLobbies();
     }
 
     private void OnLobbyLeft(object sender, System.EventArgs e)
     {
         this.gameObject.SetActive(true);
-        LobbyManager.Singleton.ListLobbies();
+        LobbyManager.Instance.ListLobbies();
     }
 
     private void OnLobbyJoined(object sender, Lobby lobby)
@@ -31,7 +31,9 @@ public class LobbyList : MonoBehaviour
 
     private void OnDestroy()
     {
-        LobbyManager.Singleton.OnLobbyListUpdates -= OnLobbyListUpdates;
+        LobbyManager.Instance.OnLobbyListUpdates -= OnLobbyListUpdates;
+        LobbyManager.Instance.OnLobbyJoined -= OnLobbyJoined;
+        LobbyManager.Instance.OnLobbyLeft -= OnLobbyLeft;
     }
 
     private void OnLobbyListUpdates(object sender, List<Lobby> lobbyList)

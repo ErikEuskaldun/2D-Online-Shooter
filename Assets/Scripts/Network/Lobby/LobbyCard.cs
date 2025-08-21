@@ -31,6 +31,6 @@ public class LobbyCard : MonoBehaviour
 
     public void JoinLobby()
     {
-        LobbyManager.Singleton.JoinLobbyByID(lobby.Id);
+        LobbyManager.Instance.JoinLobbyByID(lobby.Id);
     }
 }

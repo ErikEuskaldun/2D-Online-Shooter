@@ -22,7 +22,7 @@ public class CreateLobby : MonoBehaviour
         if (maxPlayers < 2) maxPlayers = 2;
         if(maxPlayers > 12) maxPlayers = 12;
         bool isPrivate = tgIsPrivate.isOn;
-        LobbyManager.Singleton.CreateLobby(lobbyName, maxPlayers, isPrivate);
+        LobbyManager.Instance.CreateLobby(lobbyName, maxPlayers, isPrivate);
 
         this.gameObject.SetActive(false);
     }

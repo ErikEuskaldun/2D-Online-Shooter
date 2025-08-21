@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
-    public static LobbyManager Singleton;
+    public static LobbyManager Instance;
 
     private Lobby joinedLobby;
     private float heartbeatTimer = HEARTBEAT_MAX_TIME;
@@ -35,20 +35,19 @@ public class LobbyManager : MonoBehaviour
 
     private void Awake()
     {
-        /*if (Singleton != null && Singleton !=this)
+        /*if (Instance != null && Instance !=this)
         {
             Destroy(this.gameObject);
             return;
         }
 
         DontDestroyOnLoad(this.gameObject);*/
+
         NetworkManager[] existingManagers = FindObjectsByType<NetworkManager>(FindObjectsSortMode.None);
         if (existingManagers.Length == 0)
             Instantiate(networkManager);
 
-        //DontDestroyOnLoad(gameObject);
-
-        Singleton = this;
+        Instance = this;
     }
 
     private void Update()
@@ -274,15 +273,20 @@ public class LobbyManager : MonoBehaviour
     //Se sale del lobby actual
     public async void LeaveLobby()
     {
+        Debug.Log("Intentando salir");
         try
         {
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+            joinedLobby = null;
             OnLobbyLeft?.Invoke(this, EventArgs.Empty);
+            Debug.Log("He salido del lobby -> ");
         }
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
+            Debug.Log("No ha podido salir del Lobby");
         }
+        Debug.Log("FIN");
     }
 
     //Expulsa a un jugador por indice

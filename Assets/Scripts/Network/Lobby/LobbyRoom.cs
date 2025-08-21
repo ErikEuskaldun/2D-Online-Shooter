@@ -17,15 +17,15 @@ public class LobbyRoom : MonoBehaviour
 
     private void Start()
     {
-        LobbyManager.Singleton.OnLobbyDataChange += OnLobbyDataChange;
-        LobbyManager.Singleton.OnGameStarting += OnGameStarting;
+        LobbyManager.Instance.OnLobbyDataChange += OnLobbyDataChange;
+        LobbyManager.Instance.OnGameStarting += OnGameStarting;
         btnStartGame.onClick.AddListener(StartGame);
     }
 
     private void StartGame()
     {
         btnStartGame.interactable = false;
-        LobbyManager.Singleton.StartGame();
+        LobbyManager.Instance.StartGame();
     }
 
     private void OnGameStarting(object sender, System.EventArgs e)
@@ -61,12 +61,13 @@ public class LobbyRoom : MonoBehaviour
         }
 
         //Boton Inciar
-        if(LobbyManager.Singleton.IAmHost())
+        if(LobbyManager.Instance.IAmHost())
             btnStartGame.gameObject.SetActive(true);
         else btnStartGame.gameObject.SetActive(false);
     }
     private void OnDestroy()
     {
-        LobbyManager.Singleton.OnLobbyDataChange -= OnLobbyDataChange;
+        LobbyManager.Instance.OnLobbyDataChange -= OnLobbyDataChange;
+        LobbyManager.Instance.OnGameStarting -= OnGameStarting;
     }
 }

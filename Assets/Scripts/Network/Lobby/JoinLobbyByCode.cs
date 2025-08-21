@@ -15,6 +15,6 @@ public class JoinLobbyByCode : MonoBehaviour
     public void JoinByCode()
     {
         string joinCode = ifJoinCode.text;
-        LobbyManager.Singleton.JoinLobbyByCode(joinCode);
+        LobbyManager.Instance.JoinLobbyByCode(joinCode);
     }
 }

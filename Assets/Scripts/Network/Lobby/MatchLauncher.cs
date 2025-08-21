@@ -11,14 +11,14 @@ public class MatchLauncher : MonoBehaviour
     private bool isLoading = false;
     void Start()
     {
-        LobbyManager.Singleton.OnLobbyDataChange += LobbyManager_OnLobbyDataChange;
-        LobbyManager.Singleton.OnGameStarting += LobbyManager_OnGameStarting;
+        LobbyManager.Instance.OnLobbyDataChange += LobbyManager_OnLobbyDataChange;
+        LobbyManager.Instance.OnGameStarting += LobbyManager_OnGameStarting;
     }
 
     private void OnDestroy()
     {
-        LobbyManager.Singleton.OnLobbyDataChange -= LobbyManager_OnLobbyDataChange;
-        LobbyManager.Singleton.OnGameStarting -= LobbyManager_OnGameStarting;
+        LobbyManager.Instance.OnLobbyDataChange -= LobbyManager_OnLobbyDataChange;
+        LobbyManager.Instance.OnGameStarting -= LobbyManager_OnGameStarting;
     }
 
     private void LobbyManager_OnGameStarting(object sender, EventArgs e)
@@ -31,8 +31,8 @@ public class MatchLauncher : MonoBehaviour
         if (!NetworkManager.Singleton.IsServer)
             return;
 
-        Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + "/" + LobbyManager.Singleton.JoinedLobby.Players.Count);
-        if (NetworkManager.Singleton.ConnectedClients.Count == LobbyManager.Singleton.JoinedLobby.Players.Count && !isLoading)
+        Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + "/" + LobbyManager.Instance.JoinedLobby.Players.Count);
+        if (NetworkManager.Singleton.ConnectedClients.Count == LobbyManager.Instance.JoinedLobby.Players.Count && !isLoading)
             LoadGame("map_test", "not_implemented"); //Test data
     }
 
