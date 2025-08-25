@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,14 +10,21 @@ public class NetGun : NetworkBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private bool isLocked = false;
+    //Current ammo -1 (infinite) -2 (reloading)
+    public NetworkVariable<int> currentAmmo = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     private float shootCooldown;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
 
-    public void Init(ulong ownerId)
+    public void Init(ulong ownerClientID)
     {
-        // si quieres guardar el ownerId para el projectile, etc.
+        currentAmmo.Value = gunInfo.ammo;
+    }
+
+    public void SetUI()
+    {
+        GameUI.Instance.SetGun(this, gunInfo.sprite);
     }
 
     public void SetLocked(bool locked)
@@ -26,14 +34,19 @@ public class NetGun : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsClient)
-            return;
         shootCooldown -= Time.deltaTime;
+
+        if (!IsOwner)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.R) || currentAmmo.Value == 0)
+            Reload();
     }
 
+    #region Shoot
     public bool CanShoot()
     {
-        return shootCooldown <= 0f && !isLocked;
+        return shootCooldown <= 0f && !isLocked && currentAmmo.Value>0;
     }
 
     public Vector2 GetShotDirection()
@@ -49,6 +62,7 @@ public class NetGun : NetworkBehaviour
         if (shootCooldown > 0 || isLocked)
             return;
 
+        currentAmmo.Value--;
         shootCooldown = gunInfo.cadence;
         
         //projObj.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
@@ -63,4 +77,28 @@ public class NetGun : NetworkBehaviour
         projectile.SetOwner(OwnerClientId);
         projectile.Shoot(direction);
     }
+    #endregion
+
+    #region Reload
+    private void Reload()
+    {
+        if (currentAmmo.Value == gunInfo.ammo)
+            return;
+
+        ReloadServerRpc();
+    }
+
+    [ServerRpc]
+    private void ReloadServerRpc()
+    {
+        StartCoroutine(ReloadAsync());
+    }
+
+    private IEnumerator ReloadAsync()
+    {
+        currentAmmo.Value = -2; //Reloading
+        yield return new WaitForSeconds(gunInfo.reloadTime);
+        currentAmmo.Value = gunInfo.ammo;
+    }
+    #endregion
 }

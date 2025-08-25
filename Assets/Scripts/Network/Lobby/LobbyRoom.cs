@@ -14,18 +14,25 @@ public class LobbyRoom : MonoBehaviour
     [SerializeField] Image imgMap;
     [SerializeField] Transform playerPrefabContainer;
     [SerializeField] Button btnStartGame;
+    [SerializeField] Button btnLeaveLobby;
 
     private void Start()
     {
         LobbyManager.Instance.OnLobbyDataChange += OnLobbyDataChange;
         LobbyManager.Instance.OnGameStarting += OnGameStarting;
         btnStartGame.onClick.AddListener(StartGame);
+        btnLeaveLobby.onClick.AddListener(LeaveLobby);
     }
 
     private void StartGame()
     {
         btnStartGame.interactable = false;
         LobbyManager.Instance.StartGame();
+    }
+
+    private void LeaveLobby()
+    {
+        LobbyManager.Instance.LeaveLobby();
     }
 
     private void OnGameStarting(object sender, System.EventArgs e)
@@ -69,5 +76,7 @@ public class LobbyRoom : MonoBehaviour
     {
         LobbyManager.Instance.OnLobbyDataChange -= OnLobbyDataChange;
         LobbyManager.Instance.OnGameStarting -= OnGameStarting;
+        btnStartGame.onClick.RemoveListener(StartGame);
+        btnLeaveLobby.onClick.RemoveListener(LeaveLobby);
     }
 }

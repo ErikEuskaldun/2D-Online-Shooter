@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4396187228281769525, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
       propertyPath: damage
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3094571880173649748, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
       propertyPath: m_CollisionDetection
@@ -104,4 +104,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140a2aa4a1fb53b469bf474e7f536943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounces: 5
+  bounces: 2

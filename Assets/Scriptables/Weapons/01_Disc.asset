@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   gunName: Disc
-  cadence: 0.5
-  reloadTime: 1
+  cadence: 0.4
+  reloadTime: 2
   ammo: 8
   sprite: {fileID: 2452891371118745437, guid: 1f9a05288d61bec48b0aee58fe03816f, type: 3}
   prefab: {fileID: 2567097623662342746, guid: f236bdc188c05f24590239d3563eae62, type: 3}

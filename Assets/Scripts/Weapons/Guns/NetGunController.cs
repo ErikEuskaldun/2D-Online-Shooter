@@ -44,27 +44,22 @@ public class NetGunController : NetworkBehaviour
         NetworkManager.SceneManager.OnLoadComplete -= HandleSceneLoaded;
     }
 
-
     private void OnGunRefChanged(NetworkObjectReference previousValue, NetworkObjectReference newValue)
     {
+        Debug.Log("Referencia asignada");
         if (newValue.TryGet(out NetworkObject netObj))
+        {
             gun = netObj.GetComponent<NetGun>();
+            if (IsOwner)
+                gun.SetUI();
+        }
     }
 
     private IEnumerator AssignGunRefDelayed()
     {
-        int i = 0;
-        do
-        {
-            yield return new WaitForEndOfFrame();
-            OnGunRefChanged(default, gunRef.Value);
-            i++;
-        } while (gunRef == default);
-    }
 
-    private void FixedUpdate()
-    {
-        
+        yield return new WaitUntil(() => gunRef.Value.TryGet(out _));
+        OnGunRefChanged(default, gunRef.Value);
     }
 
     private void Update()

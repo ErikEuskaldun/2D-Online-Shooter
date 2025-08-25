@@ -23,8 +23,6 @@ public class NetPlayer : NetworkBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    private const bool EDIT_MODE = false;
-
     public event EventHandler<NetPlayer> OnPlayerKills;
     public event EventHandler<NetPlayer> OnPlayerDies;
 
@@ -43,7 +41,7 @@ public class NetPlayer : NetworkBehaviour
             return;
             
 
-        if(!EDIT_MODE)
+        if(!GameUtils.EDIT_MODE)
         {
             username.Value = PlayerDataManager.Instance.Username;
             NetworkManager.Singleton.SceneManager.OnSceneEvent += (sceneEvent) =>

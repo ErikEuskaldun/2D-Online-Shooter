@@ -273,20 +273,16 @@ public class LobbyManager : MonoBehaviour
     //Se sale del lobby actual
     public async void LeaveLobby()
     {
-        Debug.Log("Intentando salir");
         try
         {
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
             joinedLobby = null;
             OnLobbyLeft?.Invoke(this, EventArgs.Empty);
-            Debug.Log("He salido del lobby -> ");
         }
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
-            Debug.Log("No ha podido salir del Lobby");
         }
-        Debug.Log("FIN");
     }
 
     //Expulsa a un jugador por indice
