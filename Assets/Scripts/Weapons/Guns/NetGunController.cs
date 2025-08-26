@@ -22,6 +22,8 @@ public class NetGunController : NetworkBehaviour
 
         if (IsServer)
         {
+            if (GameUtils.EDIT_MODE && OwnerClientId == NetworkManager.LocalClientId)
+                HandleSceneLoaded(OwnerClientId, default, default);
             NetworkManager.SceneManager.OnLoadComplete += HandleSceneLoaded;
         }
 
@@ -46,15 +48,16 @@ public class NetGunController : NetworkBehaviour
 
     private void OnGunRefChanged(NetworkObjectReference previousValue, NetworkObjectReference newValue)
     {
-        Debug.Log("Referencia asignada");
         if (newValue.TryGet(out NetworkObject netObj))
         {
             gun = netObj.GetComponent<NetGun>();
+            gun.SpriteRenderer.material = GameDatabase.Instance.GetPlayerMaterial(IsOwner);
             if (IsOwner)
-                gun.SetUI();
+                StartCoroutine(AssignUIWhenReady());
         }
     }
 
+    #region Delay
     private IEnumerator AssignGunRefDelayed()
     {
 
@@ -62,22 +65,34 @@ public class NetGunController : NetworkBehaviour
         OnGunRefChanged(default, gunRef.Value);
     }
 
+
+    private IEnumerator AssignUIWhenReady()
+    {
+        // Espera hasta que GameUI.Instance no sea null
+        yield return new WaitUntil(() => GameUI.Instance != null);
+
+        gun.SetUI();
+    }
+    #endregion
+
     private void Update()
+    {
+        if (!IsOwner || gun == null)
+            return;
+
+        Rotate();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && gun.CanShoot())
+            gun.ShootServerRpc(gun.GetShotDirection());
+    }
+
+    private void LateUpdate()
     {
         if (gun == null)
             return;
 
-        if (IsOwner)
-            Rotate();
-
         gun.transform.position = handTransform.position;
         gun.transform.localRotation = handTransform.rotation;
-
-        if (!IsOwner)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && gun.CanShoot())
-            gun.ShootServerRpc(gun.GetShotDirection());
     }
 
     private void Rotate()

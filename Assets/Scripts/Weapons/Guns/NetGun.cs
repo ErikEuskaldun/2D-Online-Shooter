@@ -24,7 +24,7 @@ public class NetGun : NetworkBehaviour
 
     public void SetUI()
     {
-        GameUI.Instance.SetGun(this, gunInfo.sprite);
+        GameUI.Instance.SetGun(this, gunInfo.icon);
     }
 
     public void SetLocked(bool locked)
@@ -72,9 +72,11 @@ public class NetGun : NetworkBehaviour
     [ClientRpc]
     public void ShootClientRpc(Vector2 direction)
     {
-        var projObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-        var projectile = projObj.GetComponent<Projectile>();
-        projectile.SetOwner(OwnerClientId);
+        GameObject projObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        Projectile projectile = projObj.GetComponent<Projectile>();
+
+        Debug.Log(IsOwner);
+        projectile.Setup(OwnerClientId, GameDatabase.Instance.GetSpriteMaterial(IsOwner));
         projectile.Shoot(direction);
     }
     #endregion

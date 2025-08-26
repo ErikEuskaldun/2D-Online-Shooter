@@ -36,6 +36,7 @@ public class NetPlayer : NetworkBehaviour
         rigidbody = this.GetComponent<Rigidbody2D>();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         animator = this.GetComponent<Animator>();
+        GetComponent<SpriteRenderer>().material = GameDatabase.Instance.GetPlayerMaterial(IsOwner);
 
         if (!IsOwner)
             return;

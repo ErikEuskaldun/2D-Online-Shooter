@@ -128,7 +128,7 @@ TextureImporter:
       name: weapon_disc_1
       rect:
         serializedVersion: 2
-        x: 21
+        x: 22
         y: 4
         width: 12
         height: 12
@@ -142,6 +142,50 @@ TextureImporter:
       bones: []
       spriteID: 409cde073a31c1380800000000000000
       internalID: -8999296362697864956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapon_disc_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 2
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbc9f07e9710cf24c89e7b5892b9494b
+      internalID: 1576084208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapon_disc_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 2
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 305962a653189ce46b1d446dcd670dc6
+      internalID: -1192536336
       vertices: []
       indices: 
       edges: []
@@ -162,6 +206,8 @@ TextureImporter:
     nameFileIdTable:
       weapon_disc_0: 2452891371118745437
       weapon_disc_1: -8999296362697864956
+      weapon_disc_2: 1576084208
+      weapon_disc_3: -1192536336
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

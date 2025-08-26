@@ -12,6 +12,8 @@ public class NetworkGameManager : NetworkBehaviour
     public NetworkVariable<int> time = new NetworkVariable<int>(300, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public GameMode gameMode = GameMode.FFA;
 
+    public const int FFA_KILLS = 20;
+
     private void Awake()
     {
         Instance = this;
@@ -72,10 +74,9 @@ public class NetworkGameManager : NetworkBehaviour
         }
     }
 
-    private const int TEST_FFA_KILLS = 20;
     private void Player_OnPlayerKills(object sender, NetPlayer killer)
     {
-        if (killer.kills.Value == TEST_FFA_KILLS)
+        if (killer.kills.Value == FFA_KILLS)
             EndGame();
     }
 

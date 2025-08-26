@@ -13,6 +13,7 @@ public class ScoreBoard : MonoBehaviour
     [SerializeField] Transform popUp;
     [SerializeField] GameObject scoreBoardPlayerPrefab;
     [SerializeField] TMP_Text txtTime;
+    [SerializeField] TMP_Text txtScore;
 
     bool isEnabled = false;
 
@@ -57,7 +58,7 @@ public class ScoreBoard : MonoBehaviour
 
     public void GetMatchScore()
     {
-        //TODO: Mostrar la puntuacion de los equipos
+        txtScore.text = NetworkGameManager.FFA_KILLS.ToString();
     }
 
     public void GetAllPlayerScore()

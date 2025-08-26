@@ -12,6 +12,5 @@ public class ProjectileBounce : MonoBehaviour
             if (bounces < 0)
                 Destroy(gameObject);
         }
-        //if(collision.collider.gameObject.layer == ??) Combrueba si ha golpeado un jugador y le quita vida
     }
 }

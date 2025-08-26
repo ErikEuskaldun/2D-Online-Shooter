@@ -9,5 +9,6 @@ public class GunScriptable : ScriptableObject
     public float reloadTime = 1f;
     public int ammo = 9;
     public Sprite sprite;
+    public Sprite icon;
     public GameObject prefab;
 }

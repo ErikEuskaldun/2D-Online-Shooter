@@ -18,4 +18,5 @@ MonoBehaviour:
   reloadTime: 2
   ammo: 8
   sprite: {fileID: 2452891371118745437, guid: 1f9a05288d61bec48b0aee58fe03816f, type: 3}
+  icon: {fileID: -1192536336, guid: 1f9a05288d61bec48b0aee58fe03816f, type: 3}
   prefab: {fileID: 2567097623662342746, guid: 72745026218bc9946b1d3318ed4f0bda, type: 3}

@@ -14,9 +14,10 @@ public class Projectile : MonoBehaviour
         rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
-    public void SetOwner(ulong ownerId)
+    public void Setup(ulong ownerId, Material material)
     {
-        this.ownerId = ownerId; 
+        this.ownerId = ownerId;
+        this.GetComponent<SpriteRenderer>().material = material;
     }
 
     public virtual void Shoot(Vector2 direction)
