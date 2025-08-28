@@ -171,7 +171,7 @@ public class NetPlayer : NetworkBehaviour
         NetPlayerUI playerUI = GetComponent<NetPlayerUI>();
 
         rigidbody.simulated = isAlive;
-        collider.enabled = isAlive;
+        //collider.enabled = isAlive;
         spriteRenderer.enabled = isAlive;
         playerUI.SetVisible(isAlive);
         gunController.Gun.SpriteRenderer.enabled = isAlive;

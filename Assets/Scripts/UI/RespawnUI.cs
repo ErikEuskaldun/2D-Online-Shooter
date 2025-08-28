@@ -30,6 +30,7 @@ public class RespawnUI : MonoBehaviour
 
     private IEnumerator Counter(int seconds)
     {
+        LoadoutGameMenu.Instance.SetVisible(true);
         int timer = seconds;
         do
         {
@@ -37,6 +38,7 @@ public class RespawnUI : MonoBehaviour
             yield return new WaitForSeconds(1);
             timer--;
         } while (timer > 0);
+        LoadoutGameMenu.Instance.SetVisible(false);
     }
 
     private void OnDestroy()

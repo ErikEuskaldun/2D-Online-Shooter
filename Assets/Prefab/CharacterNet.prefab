@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  testGun: {fileID: 11400000, guid: 88ab7e6721908b84eb6a987c322227b0, type: 2}
+  testGun: {fileID: 11400000, guid: 940ded505e72c274bb90eb563ff3cccc, type: 2}
 --- !u!4 &4825193813875575237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7268939951520694957, guid: 56fba43387b988a45a5e2d24b2df5a07, type: 3}

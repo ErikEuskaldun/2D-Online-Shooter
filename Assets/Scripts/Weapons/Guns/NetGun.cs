@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class NetGun : NetworkBehaviour
 {
-    [SerializeField] private GunScriptable gunInfo;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform projectileSpawnPoint;
+    [Header("Gun Setings")]
+    [SerializeField] protected GunScriptable gunInfo;
+    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Transform projectileSpawnPoint;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private bool isLocked = false;
+    protected bool isLocked = false;
     //Current ammo -1 (infinite) -2 (reloading)
     public NetworkVariable<int> currentAmmo = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    private float shootCooldown;
+    protected float shootCooldown;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
 
@@ -57,7 +58,7 @@ public class NetGun : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void ShootServerRpc(Vector2 direction)
+    public virtual void ShootServerRpc(Vector2 direction)
     {
         if (shootCooldown > 0 || isLocked)
             return;
@@ -70,12 +71,11 @@ public class NetGun : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void ShootClientRpc(Vector2 direction)
+    public virtual void ShootClientRpc(Vector2 direction)
     {
         GameObject projObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
         Projectile projectile = projObj.GetComponent<Projectile>();
 
-        Debug.Log(IsOwner);
         projectile.Setup(OwnerClientId, GameDatabase.Instance.GetSpriteMaterial(IsOwner));
         projectile.Shoot(direction);
     }

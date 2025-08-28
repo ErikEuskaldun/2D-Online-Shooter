@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5395726043556729280
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 410311848095557822, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: gunInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: c4af5d335f4569e4cb6a5d30ca605ff1, type: 2}
+    - target: {fileID: 410311848095557822, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 7793311371062730592, guid: 68910e12595f832409d825d17044f7df, type: 3}
+    - target: {fileID: 2077766943670704096, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.815
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077766943670704096, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.065
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282682602160808885, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -828955370501517991, guid: 95bb9928982a7f04ca8c507d7ac950ef, type: 3}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079580019786278944, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_Name
+      value: NetGun_Shotgun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8774810970177549128}
+    - targetCorrespondingSourceObject: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3897510730832225547}
+  m_SourcePrefab: {fileID: 100100000, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+--- !u!212 &265329652563423861 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5282682602160808885, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+  m_PrefabInstance: {fileID: 5395726043556729280}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2567097623662342746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+  m_PrefabInstance: {fileID: 5395726043556729280}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-8774810970177549128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567097623662342746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1570411003
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 1
+--- !u!114 &3897510730832225547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567097623662342746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f8beed6a0a0934dbccad41712708e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  gunInfo: {fileID: 11400000, guid: 940ded505e72c274bb90eb563ff3cccc, type: 2}
+  projectilePrefab: {fileID: 7793311371062730592, guid: 75b7fff17d402ed428658b04ac497710, type: 3}
+  projectileSpawnPoint: {fileID: 6211816532005045792}
+  spriteRenderer: {fileID: 265329652563423861}
+  currentAmmo:
+    m_InternalValue: 0
+  pellets: 5
+  spreadAngle: 45
+--- !u!4 &6211816532005045792 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2077766943670704096, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+  m_PrefabInstance: {fileID: 5395726043556729280}
+  m_PrefabAsset: {fileID: 0}
