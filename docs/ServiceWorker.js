@@ -1,9 +1,9 @@
 const cacheName = "Erik Bea-Online Game-0.0.6";
 const contentToCache = [
-    "Build/_WEBGL.loader.js",
-    "Build/_WEBGL.framework.js.br",
-    "Build/_WEBGL.data.br",
-    "Build/_WEBGL.wasm.br",
+    "Build/docs.loader.js",
+    "Build/docs.framework.js.br",
+    "Build/docs.data.br",
+    "Build/docs.wasm.br",
     "TemplateData/style.css"
 
 ];
