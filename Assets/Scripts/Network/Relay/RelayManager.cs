@@ -11,7 +11,11 @@ using UnityEngine;
 
 public class RelayManager : MonoBehaviour
 {
-    private static string CONNECTION_TYPE = "dtls"; //encriptado, tambien puede ser udp (sin encriptar)
+#if UNITY_WEBGL
+    private static string CONNECTION_TYPE = "wss"; // WebGL: necesita WebSockets seguros
+#else
+    private static string CONNECTION_TYPE = "dtls"; // PC/Editor: encriptado, tambien puede ser udp (sin encriptar)
+#endif
 
     public static RelayManager Singleton;
 
