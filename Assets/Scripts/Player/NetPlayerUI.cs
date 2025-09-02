@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class NetPlayerUI : MonoBehaviour
+public class NetPlayerUI : NetworkBehaviour
 {
     [Header("HP")]
     [SerializeField] Transform hpBar;
@@ -28,5 +29,11 @@ public class NetPlayerUI : MonoBehaviour
         hpBar.GetComponent<SpriteRenderer>().enabled = visible;
         foreach (Transform hpSegment in hpSegmentList)
             hpSegment.GetComponent<SpriteRenderer>().enabled = visible;
+    }
+
+    [ClientRpc]
+    public void SetHitmarkerClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        CursorManager.Instance.Hit();
     }
 }

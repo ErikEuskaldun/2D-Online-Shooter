@@ -105,6 +105,16 @@ public class NetPlayer : NetworkBehaviour
     {
         currentHP.Value -= damage;
 
+        ClientRpcParams sendParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { playerId }
+            }
+        };
+
+        GetComponent<NetPlayerUI>().SetHitmarkerClientRpc(sendParams);
+
         if (currentHP.Value <= 0)
         {
             StartCoroutine(Spawning(5));
@@ -137,10 +147,10 @@ public class NetPlayer : NetworkBehaviour
             yield return new WaitForSeconds(1);
             timer--;
         } while (timer > 0);
-        SetAliveStateClientRpc(true);
-        
-        currentHP.Value = 100;
         SpawnClientRpc(sendParams);
+        yield return new WaitForSeconds(0.1f);
+        SetAliveStateClientRpc(true);
+        currentHP.Value = 100;
     }
 
     [ClientRpc]
