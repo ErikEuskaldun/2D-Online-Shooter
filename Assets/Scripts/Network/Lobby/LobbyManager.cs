@@ -90,8 +90,9 @@ public class LobbyManager : MonoBehaviour
     }
 
     //Crea un lobby con los datos ofrecidos
-    public async void CreateLobby(string lobbyName = "DefaultLobby", int maxPlayers = 4, bool isPrivate = false)
+    public async void CreateLobby(string lobbyName = "DefaultLobby", int maxPlayers = 4, bool isPrivate = false, string mapName = "test_map")
     {
+        Debug.Log(mapName);
         try
         {
             //Opciones del lobby
@@ -103,7 +104,7 @@ public class LobbyManager : MonoBehaviour
                 {
                     { "game_mode", new DataObject(DataObject.VisibilityOptions.Public, "Free-for-All") },
                     //{"GameMode", new DataObject(DataObject.VisibilityOptions.Public, "GunGame", DataObject.IndexOptions.S1) } #Para luego poder filtrar por S1
-                    { "map", new DataObject(DataObject.VisibilityOptions.Public, "test_map") },
+                    { "map", new DataObject(DataObject.VisibilityOptions.Public, mapName) },
                     { "relay_key", new DataObject(DataObject.VisibilityOptions.Member, "0") },
                     { "build_version", new DataObject(DataObject.VisibilityOptions.Public, Application.version) },
 

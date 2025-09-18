@@ -33,12 +33,16 @@ public class MatchLauncher : MonoBehaviour
 
         Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + "/" + LobbyManager.Instance.JoinedLobby.Players.Count);
         if (NetworkManager.Singleton.ConnectedClients.Count == LobbyManager.Instance.JoinedLobby.Players.Count && !isLoading)
-            LoadGame("map_test", "not_implemented"); //Test data
+        {
+            string map = LobbyManager.Instance.JoinedLobby.Data["map"].Value;
+            LoadGame(map, "not_implemented");
+        }
+            
     }
 
     private void LoadGame(string map, string gamemode)
     {
         isLoading = true;
-        NetworkManager.Singleton.SceneManager.LoadScene("map_test", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(map, LoadSceneMode.Single);
     }
 }

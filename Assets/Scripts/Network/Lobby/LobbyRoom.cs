@@ -51,7 +51,10 @@ public class LobbyRoom : MonoBehaviour
         txtLobbyName.text = lobby.Name;
         txtGamemode.text = lobby.Data["game_mode"].Value;
         txtInviteCode.text = "Invite Code: " + lobby.LobbyCode;
-        txtMap.text = lobby.Data["map"].Value;
+
+        string mapName = lobby.Data["map"].Value;
+        txtMap.text = MapDatabase.Instance.GetDisplayName(mapName);
+        imgMap.sprite = MapDatabase.Instance.GetPreviewImage(mapName);
         //imgMap.sprite = ;
         txtPlayersOnline.text = "Players " + lobby.Players.Count + "/" + lobby.MaxPlayers;
 
