@@ -76,7 +76,7 @@ public class NetGun : NetworkBehaviour
         GameObject projObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
         Projectile projectile = projObj.GetComponent<Projectile>();
 
-        projectile.Setup(OwnerClientId, GameDatabase.Instance.GetSpriteMaterial(IsOwner));
+        projectile.Setup(gunInfo.id, OwnerClientId, GameDatabase.Instance.GetSpriteMaterial(IsOwner));
         projectile.Shoot(direction);
     }
     #endregion

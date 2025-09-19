@@ -3,11 +3,11 @@ using TMPro;
 using Unity.Netcode;
 using System.Collections;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using System.Collections.Generic;
 
 public class RespawnUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text txtSpawning;
-    [SerializeField] private Material spriteMaterial;
 
     public static RespawnUI Instance;
 
@@ -19,7 +19,7 @@ public class RespawnUI : MonoBehaviour
     public void SetActive(bool active)
     {
         float gradient = active ? 0.5f : 1f;
-        spriteMaterial.SetFloat("_GradientAdjustment", gradient);
+        SetAllMaterialGradient(gradient);
         txtSpawning.enabled = active;
     }
 
@@ -43,6 +43,18 @@ public class RespawnUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        spriteMaterial.SetFloat("_GradientAdjustment", 1f);
+        SetAllMaterialGradient(1f);
+    }
+
+    private void SetAllMaterialGradient(float gradient)
+    {
+        List<Material> materialList = GameDatabase.Instance.GetAllMaterial();
+        foreach (Material mat in materialList)
+        {
+            if (mat.name == "SpriteEnemy") //las balas deben quedarse rojas
+                continue;
+            mat.SetFloat("_GradientAdjustment", gradient);
+        }
+        
     }
 }

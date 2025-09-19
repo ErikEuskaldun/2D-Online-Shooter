@@ -169,7 +169,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1571210729665169271}
-  - {fileID: 2063365493056919191}
+  - {fileID: 7674872102196423799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8960112969828591287
@@ -583,7 +583,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &8997220371485851281
 MonoBehaviour:
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &2494108631040887963
+--- !u!1001 &6105982715278947963
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -818,8 +818,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abb3dec80d133b24488dd16dfd8fe916, type: 3}
---- !u!4 &2063365493056919191 stripped
+--- !u!4 &7674872102196423799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4485111812854471180, guid: abb3dec80d133b24488dd16dfd8fe916, type: 3}
-  m_PrefabInstance: {fileID: 2494108631040887963}
+  m_PrefabInstance: {fileID: 6105982715278947963}
   m_PrefabAsset: {fileID: 0}

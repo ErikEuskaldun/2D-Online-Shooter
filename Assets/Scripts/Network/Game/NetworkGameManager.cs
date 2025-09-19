@@ -1,6 +1,7 @@
 using NUnit.Framework.Internal;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkGameManager : NetworkBehaviour
 {
+    private HashSet<ulong> subscribedClients = new HashSet<ulong>();
     public static NetworkGameManager Instance;
     public NetworkVariable<int> time = new NetworkVariable<int>(300, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public GameMode gameMode = GameMode.FFA;
@@ -27,6 +29,7 @@ public class NetworkGameManager : NetworkBehaviour
         NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnect;
 
         // Si ya estaban conectados -> fuerza
+        //TODO: Puede dar error
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
             NetworkManager_OnClientConnected(client.ClientId);
 
@@ -51,6 +54,8 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void NetworkManager_OnClientConnected(ulong obj)
     {
+        if (subscribedClients.Contains(obj))
+            return; // Ya está suscrito
         NetworkManager.Singleton.ConnectedClients.TryGetValue(obj, out NetworkClient client);
         NetPlayer player = client.PlayerObject.GetComponent<NetPlayer>();
         player.OnPlayerKills += Player_OnPlayerKills;
@@ -74,10 +79,22 @@ public class NetworkGameManager : NetworkBehaviour
         }
     }
 
-    private void Player_OnPlayerKills(object sender, NetPlayer killer)
+    private void Player_OnPlayerKills(object sender, NetPlayer.OnPlayerKillsEventArgs e)
     {
-        if (killer.kills.Value == FFA_KILLS)
+        //Killfeed
+        string killer = e.killer.username.Value.ToString();
+        string victim  = e.victim.username.Value.ToString();
+        KillfeedAddClientRpc(killer, victim, e.weaponId);
+
+        //End FFA
+        if (e.killer.kills.Value == FFA_KILLS)
             EndGame();
+    }
+
+    [ClientRpc]
+    private void KillfeedAddClientRpc(string killer, string victim, int weaponId)
+    {
+        Killfeed.Instance.SpawnKillfeedElement(killer, victim, weaponId);
     }
 
     private IEnumerator GameTimer(int seconds)

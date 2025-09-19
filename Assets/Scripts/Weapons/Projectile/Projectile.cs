@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] float speed = 5f;
     ulong ownerId;
+    int weaponId;
 
     public ulong OwnerID => ownerId;
     Rigidbody2D rigidbody;
@@ -15,8 +16,9 @@ public class Projectile : MonoBehaviour
         rigidbody = this.GetComponent<Rigidbody2D>();
     }
 
-    public void Setup(ulong ownerId, Material material)
+    public void Setup(int weaponId, ulong ownerId, Material material)
     {
+        this.weaponId = weaponId;
         this.ownerId = ownerId;
         this.GetComponent<SpriteRenderer>().material = material;
     }
@@ -40,7 +42,7 @@ public class Projectile : MonoBehaviour
             if (playerHit.OwnerClientId == ownerId)
                 return;
 
-            playerHit.Hit(damage, ownerId);
+            playerHit.Hit(damage, ownerId, weaponId);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
@@ -28,5 +29,15 @@ public class GameDatabase : MonoBehaviour
     public Material GetSpriteMaterial(bool isAlly)
     {
         return isAlly ? allySpriteMaterial : enemySpriteMaterial;
+    }
+
+    public List<Material> GetAllMaterial()
+    {
+        List<Material> result = new List<Material>();
+        result.Add(allyTeamMaterial);
+        result.Add(enemyTeamMaterial);
+        result.Add(allySpriteMaterial); 
+        result.Add(enemySpriteMaterial);
+        return result;
     }
 }

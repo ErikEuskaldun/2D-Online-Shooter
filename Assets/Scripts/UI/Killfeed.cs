@@ -3,11 +3,18 @@ using UnityEngine;
 
 public class Killfeed : MonoBehaviour
 {
+    public static Killfeed Instance;
+
     [SerializeField] GameObject killfeedPrefab;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
-        StartCoroutine(SpawnRandomKill());
+        //StartCoroutine(SpawnRandomKill());
     }
 
     public void SpawnKillfeedElement(string killer, string victim, int weaponIndex)

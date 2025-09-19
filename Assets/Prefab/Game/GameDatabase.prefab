@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4485111812854471180}
   - component: {fileID: 8973261163453401396}
+  - component: {fileID: 3918013692041009784}
   m_Layer: 0
   m_Name: GameDatabase
   m_TagString: Untagged
@@ -48,3 +49,19 @@ MonoBehaviour:
   enemyTeamMaterial: {fileID: 2100000, guid: c0dae5fcecc52754483faf6d9e234ad4, type: 2}
   allySpriteMaterial: {fileID: 2100000, guid: 085a7f7b55ffd964193716ca804f1f05, type: 2}
   enemySpriteMaterial: {fileID: 2100000, guid: 03535f563aeb99441b324c56ca68d67b, type: 2}
+--- !u!114 &3918013692041009784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319286943593291318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0ab9f588bfb864a91718ac65341bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSprites:
+  - {fileID: -8999296362697864956, guid: 1f9a05288d61bec48b0aee58fe03816f, type: 3}
+  - {fileID: -1192536336, guid: 1f9a05288d61bec48b0aee58fe03816f, type: 3}
+  - {fileID: 433554428645641512, guid: 95bb9928982a7f04ca8c507d7ac950ef, type: 3}

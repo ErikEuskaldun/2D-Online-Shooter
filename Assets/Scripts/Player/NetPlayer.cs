@@ -23,7 +23,13 @@ public class NetPlayer : NetworkBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    public event EventHandler<NetPlayer> OnPlayerKills;
+    public class OnPlayerKillsEventArgs : EventArgs 
+    {
+        public NetPlayer killer;
+        public NetPlayer victim;
+        public int weaponId;
+    }
+    public event EventHandler<OnPlayerKillsEventArgs> OnPlayerKills;
     public event EventHandler<NetPlayer> OnPlayerDies;
 
     public override void OnNetworkSpawn()
@@ -101,8 +107,11 @@ public class NetPlayer : NetworkBehaviour
         animator.SetBool(animation, state);
     }
 
-    public void Hit(int damage, ulong playerId)
+    public void Hit(int damage, ulong playerId, int weaponId)
     {
+        if (currentHP.Value <= 0)
+            return;
+
         currentHP.Value -= damage;
 
         ClientRpcParams sendParams = new ClientRpcParams
@@ -116,18 +125,26 @@ public class NetPlayer : NetworkBehaviour
         GetComponent<NetPlayerUI>().SetHitmarkerClientRpc(sendParams);
 
         if (currentHP.Value <= 0)
+            Die(playerId, weaponId);
+    }
+
+    private void Die(ulong killerId, int weaponId)
+    {
+        StartCoroutine(Spawning(5));
+        SetAliveStateClientRpc(false);
+
+        NetworkManager.Singleton.ConnectedClients.TryGetValue(killerId, out NetworkClient killer);
+        NetPlayer netKiller = killer.PlayerObject.GetComponent<NetPlayer>();
+        netKiller.kills.Value++;
+        OnPlayerKills?.Invoke(netKiller, new OnPlayerKillsEventArgs
         {
-            StartCoroutine(Spawning(5));
-            SetAliveStateClientRpc(false);
+            killer = netKiller,
+            victim = this,
+            weaponId = weaponId
+        });
 
-            NetworkManager.Singleton.ConnectedClients.TryGetValue(playerId, out NetworkClient killer);
-            NetPlayer netKiller = killer.PlayerObject.GetComponent<NetPlayer>();
-            netKiller.kills.Value++;
-            OnPlayerKills?.Invoke(netKiller, netKiller);
-
-            deaths.Value++;
-            OnPlayerDies?.Invoke(this, this);
-        }
+        deaths.Value++;
+        OnPlayerDies?.Invoke(this, this);
     }
 
     private IEnumerator Spawning(int seconds)
