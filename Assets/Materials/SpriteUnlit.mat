@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteEnemy
-  m_Shader: {fileID: -6465566751694194690, guid: 7e356f5710291ed438f0373b36cd6a38, type: 3}
+  m_Name: SpriteUnlit
+  m_Shader: {fileID: -6465566751694194690, guid: 169e6f60480669a498ac3782d6aa79c0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientTex:
-        m_Texture: {fileID: 2800000, guid: f05a2e92ee1694f4ea8ab73375da1b83, type: 3}
+        m_Texture: {fileID: 2800000, guid: abdef80919852274ab370765cc44920c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -110,7 +110,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GradientAdjustment: 0.4
+    - _GradientAdjustment: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1

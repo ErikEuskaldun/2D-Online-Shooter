@@ -7,7 +7,8 @@ public class NetPlayerUI : NetworkBehaviour
 {
     [Header("HP")]
     [SerializeField] Transform hpBar;
-    [SerializeField] List<Transform> hpSegmentList;
+    [SerializeField] SpriteRenderer hpSegment;
+    [SerializeField] List<Sprite> hpSegmentList;
     void Start()
     {
         this.GetComponent<NetPlayer>().currentHP.OnValueChanged += NetPlayer_HpChanged;
@@ -16,19 +17,15 @@ public class NetPlayerUI : NetworkBehaviour
     private void NetPlayer_HpChanged(int previousValue, int newValue)
     {
         float scale = newValue / 100f;
-        int activeSegments = Mathf.CeilToInt(scale / 0.125f); // 8 = full, 0 = empty
-
-        for (int i = 0; i < hpSegmentList.Count; i++)
-        {
-            hpSegmentList[i].gameObject.SetActive(i < activeSegments);
-        }
+        int activeSegment = Mathf.CeilToInt(scale / 0.125f); // 8 = full, 0 = empty
+        Debug.Log(newValue + "/" + activeSegment);
+        hpSegment.sprite = hpSegmentList[activeSegment];
     }
 
     public void SetVisible(bool visible)
     {
         hpBar.GetComponent<SpriteRenderer>().enabled = visible;
-        foreach (Transform hpSegment in hpSegmentList)
-            hpSegment.GetComponent<SpriteRenderer>().enabled = visible;
+        hpSegment.enabled = visible;
     }
 
     [ClientRpc]

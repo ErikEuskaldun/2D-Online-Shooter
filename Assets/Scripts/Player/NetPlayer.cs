@@ -109,10 +109,8 @@ public class NetPlayer : NetworkBehaviour
 
     public void Hit(int damage, ulong playerId, int weaponId)
     {
-        if (currentHP.Value <= 0)
+        if (currentHP.Value == 0)
             return;
-
-        currentHP.Value -= damage;
 
         ClientRpcParams sendParams = new ClientRpcParams
         {
@@ -122,10 +120,15 @@ public class NetPlayer : NetworkBehaviour
             }
         };
 
-        GetComponent<NetPlayerUI>().SetHitmarkerClientRpc(sendParams);
-
-        if (currentHP.Value <= 0)
+        if (currentHP.Value < damage)
+        {
+            currentHP.Value = 0;
             Die(playerId, weaponId);
+        } 
+        else
+            currentHP.Value -= damage;
+
+        GetComponent<NetPlayerUI>().SetHitmarkerClientRpc(sendParams);    
     }
 
     private void Die(ulong killerId, int weaponId)

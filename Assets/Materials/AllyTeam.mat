@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AllyTeam
-  m_Shader: {fileID: -6465566751694194690, guid: 169e6f60480669a498ac3782d6aa79c0, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7e356f5710291ed438f0373b36cd6a38, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

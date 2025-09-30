@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EnemTeam
-  m_Shader: {fileID: -6465566751694194690, guid: 169e6f60480669a498ac3782d6aa79c0, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7e356f5710291ed438f0373b36cd6a38, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7b925bdcb892d81428d5bff751d96089, type: 3}
+        m_Texture: {fileID: 2800000, guid: c36b6d2651a6995498710e3b987d19d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

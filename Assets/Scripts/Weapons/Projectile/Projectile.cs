@@ -45,4 +45,6 @@ public class Projectile : MonoBehaviour
             playerHit.Hit(damage, ownerId, weaponId);
         }
     }
+
+
 }

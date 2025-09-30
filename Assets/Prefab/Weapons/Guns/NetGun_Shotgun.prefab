@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 7793311371062730592, guid: 68910e12595f832409d825d17044f7df, type: 3}
+    - target: {fileID: 539493660629450215, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2077766943670704096, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.815
@@ -71,6 +75,14 @@ PrefabInstance:
     - target: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
       propertyPath: m_Name
       value: NetGun_Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584432925205160858, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550215377005961286, guid: a6382445ae0cc334f9d0485aba6eb8ef, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
