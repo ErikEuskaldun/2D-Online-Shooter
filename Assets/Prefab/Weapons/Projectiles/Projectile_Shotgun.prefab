@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4396187228281769525, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
       propertyPath: speed
-      value: 35
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -4396187228281769525, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
       propertyPath: damage
@@ -104,6 +104,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6364042756070710168, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7010778121703400477}
+    - targetCorrespondingSourceObject: {fileID: 6364042756070710168, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4501779819159414673}
   m_SourcePrefab: {fileID: 100100000, guid: 54b57a8465617e244b8c90141c3326a2, type: 3}
 --- !u!1 &7793311371062730592 stripped
 GameObject:
@@ -197,3 +200,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VFXPrefav: {fileID: 560707087633414120, guid: 63e5b74022d7af24e84216d6cbab40b8, type: 3}
+--- !u!114 &4501779819159414673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793311371062730592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbd83235442c8d468b4d0d9c3190b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 10

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   gunName: Shotgun
-  cadence: 0.8
+  cadence: 0.5
   reloadTime: 2
   ammo: 5
   sprite: {fileID: -828955370501517991, guid: 95bb9928982a7f04ca8c507d7ac950ef, type: 3}

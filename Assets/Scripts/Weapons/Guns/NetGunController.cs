@@ -104,8 +104,10 @@ public class NetGunController : NetworkBehaviour
 
         Rotate();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && gun.CanShoot())
-            gun.ShootServerRpc(gun.GetShotDirection());
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            gun.Press();
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
+            gun.Release();
     }
 
     private void LateUpdate()

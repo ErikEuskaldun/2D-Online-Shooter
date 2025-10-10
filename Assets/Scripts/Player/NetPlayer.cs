@@ -109,6 +109,7 @@ public class NetPlayer : NetworkBehaviour
 
     public void Hit(int damage, ulong playerId, int weaponId)
     {
+        Debug.Log("Hit");
         if (currentHP.Value == 0)
             return;
 
@@ -120,7 +121,7 @@ public class NetPlayer : NetworkBehaviour
             }
         };
 
-        if (currentHP.Value < damage)
+        if (currentHP.Value <= damage)
         {
             currentHP.Value = 0;
             Die(playerId, weaponId);
@@ -203,7 +204,10 @@ public class NetPlayer : NetworkBehaviour
         rigidbody.simulated = isAlive;
         //collider.enabled = isAlive;
         spriteRenderer.enabled = isAlive;
-        playerUI.SetVisible(isAlive);
+        if(!isAlive)
+            playerUI.SetVisible(false);
+        else if(IsOwner)
+            playerUI.SetVisible(true);
         gunController.Gun.SpriteRenderer.enabled = isAlive;
     }
 }

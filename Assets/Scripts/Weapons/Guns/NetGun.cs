@@ -36,6 +36,8 @@ public class NetGun : NetworkBehaviour
     private void Update()
     {
         shootCooldown -= Time.deltaTime;
+        if (pressTime >= 0f)
+            pressTime += Time.deltaTime;
 
         if (!IsOwner)
             return;
@@ -45,12 +47,25 @@ public class NetGun : NetworkBehaviour
     }
 
     #region Shoot
+    protected float pressTime = -1f;
+    public virtual void Press()
+    {
+        if(CanShoot()) 
+            ShootServerRpc(GetShotDirection());
+        pressTime = 0;
+    }
+
+    public virtual void Release()
+    {
+        pressTime = -1f;
+    }
+
     public bool CanShoot()
     {
         return shootCooldown <= 0f && !isLocked && currentAmmo.Value>0;
     }
 
-    public Vector2 GetShotDirection()
+    protected Vector2 GetShotDirection()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
@@ -58,7 +73,7 @@ public class NetGun : NetworkBehaviour
     }
 
     [ServerRpc]
-    public virtual void ShootServerRpc(Vector2 direction)
+    protected virtual void ShootServerRpc(Vector2 direction)
     {
         if (shootCooldown > 0 || isLocked)
             return;
@@ -71,7 +86,7 @@ public class NetGun : NetworkBehaviour
     }
 
     [ClientRpc]
-    public virtual void ShootClientRpc(Vector2 direction)
+    protected virtual void ShootClientRpc(Vector2 direction)
     {
         GameObject projObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
         Projectile projectile = projObj.GetComponent<Projectile>();
